@@ -2,7 +2,9 @@
 import java.util.Arrays;
 public class InputDecoder {
 	public  int IPPARTS = 4;
-	private  String ERRORIP="The ip or server address is not valid";
+	private  String ERRORIP="The ip/server address is not valid";
+	private String ERROR_NOTNUM="The arguement contains non-number input: ";
+	private String ERROR_NOTPOST="The arguement contains not positive number: ";
 	private String[] s;
 	private int timeout = 5;
 	private String t_pre = "-t";
@@ -16,16 +18,23 @@ public class InputDecoder {
 	private String NS_pre = "-ns";
 	private String type;
 	InputDecoder(String[] input){
+
 		s = input;
-		server = s[s.length-2].substring(1);
+		if(validateInputIPServer()){
+			server = s[s.length-2].substring(1);
 		url =s[s.length-1];
 		timeout = this.getTimeout();
 		retries = this.getRetris();
 		port = this.getPort();
 		type = this.getType();
+		}
+		else{
+			System.exit(0);
+		}
+		
 		
 	}
-	public boolean validateInput(){
+	public boolean validateInputIPServer(){
 		if(s.length<2){
 			return false;
 		}
@@ -55,7 +64,17 @@ public class InputDecoder {
 	}
 	private boolean isNum(String s){
 		if(s.matches("[-+]?\\d*\\.?\\d+")){
+			if (Float.parseFloat(s)<0)
+			{
+				System.out.println(ERROR_NOTPOST+s);
+				System.exit(0);
+			}
 			return true;
+		}
+		else{
+
+			System.out.println(ERROR_NOTNUM+s);
+			System.exit(0);
 		}
 		return false;
 	}
@@ -68,18 +87,21 @@ public class InputDecoder {
 	public int getTimeout(){
 		if(getIndex(t_pre)>-1){
 			timeout = getOptionNum(getIndex(t_pre));
+			isNum(timeout+"");
 		}
 		return timeout;
 	}
 	public int getRetris(){
 		if(getIndex(r_pre)>-1){
 			retries = getOptionNum(getIndex(r_pre));
+			isNum(retries+"");
 		}
 		return retries;
 	}
 	public int getPort(){
 		if(getIndex(p_pre)>-1){
 			port = getOptionNum(getIndex(p_pre));
+			isNum(port+"");
 		}
 		return port;
 	}
@@ -109,7 +131,7 @@ public class InputDecoder {
 		}
 		else{
 			for(String s: splitedIp){
-				//Check if the string is numeric
+				//Check if the string is a numeric that ranges from 0 to 255
 				if(isNum(s)){
 					if(Integer.parseInt(s) > 255 || Integer.parseInt(s) <0 ){
 						return false;
@@ -124,23 +146,23 @@ public class InputDecoder {
 		return true;
 	}
 	public  boolean validateURL(String add){
-		//TODO just check if it contains dot
-		return true;
+		//check if it contains dot
+		if(add.indexOf('.')>0){
+			return true;
+		}
+		return false;
+		
 	}
 	
 	// Print configuration settings supplied by user
 		public void printConfig(){
-			if(validateInput()){
+			
 			System.out.println("Query Type: " + getType());
 			System.out.println("Timeout Interval in ms: " + getTimeout());
-			System.out.println("Number of Retries: " + this.retries);
-			System.out.println("Port Number: " + this.port);
-			System.out.println("Server Address: " + this.server);
+			System.out.println("Number of Retries: " + getRetris());
+			System.out.println("Port Number: " + getPort());
+			System.out.println("Server Address: " + getServer());
 			System.out.println("Lookup Name: " + this.url);
-			}
-			else{
-				System.out.println(ERRORIP);
-				System.exit(0);
-			}
+			
 		}
 }

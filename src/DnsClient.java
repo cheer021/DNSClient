@@ -74,7 +74,7 @@ public class DnsClient {
 	    /* Answer Section */
 	    Reply myReply = new Reply(rvcDataBytes);
 	    if(myReply.getAnsCount()==0){
-	    	System.out.println("NOT FOUND");
+	    	System.out.println("\nRESULT: NOT FOUND");
 	    	clientSocket.close();
 			System.exit(0);
 	    }
@@ -86,7 +86,6 @@ public class DnsClient {
 	    
 	    for(int i= 1; i<=myReply.getAnsCount(); i++){
 	    	myReply.getOffsetAfterAnswerName();
-	    	//System.out.println(name);
 	    	myReply.getAnsType();
 	    }
 	    /*print additional records */
@@ -94,7 +93,6 @@ public class DnsClient {
 	    System.out.println("\n***Additional  Section : " + myReply.getARCOUNT() + " record(s)***");
 	    for(int i=0; i < myReply.getARCOUNT();i++){
 	    	myReply.getOffsetAfterAnswerName();
-	    	//System.out.println(name);
 	    	myReply.getAnsType();
 	    }
 	    clientSocket.close();

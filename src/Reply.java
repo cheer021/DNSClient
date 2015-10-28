@@ -14,6 +14,7 @@ public class Reply {
 		return  Utils.bytesToInts(this.response, 10, 12);
 	}
 	public String getAA(){
+		System.out.println("Utils.getBitValue(this.response, 2) "+Utils.getBitValue(this.response, 2));
 		if(Utils.getBitValue(this.response, 2) == 1){
 			return AA;
 		}
@@ -31,7 +32,7 @@ public class Reply {
 			while (labelSize != 0){
 				for (int i = 0; i < labelSize; i++){
 					name = name + Utils.byteArrayToString(response,DnsClient.index,DnsClient.index+1);
-					DnsClient.index++;// just extracted a byte
+					DnsClient.index++;// extracted a byte
 				}
 				name = name + '.';
 				if (((response[DnsClient.index]&0b11000000) >> 6) == 0b11){ // Pointer (compressed data)
@@ -145,32 +146,32 @@ public class Reply {
 		return returnData;
 	}
 	private void getATypeRecord(){
-		int ansClass = getCLASS(); //Needs it to increment offset
+		getCLASS(); //Needs it to increment offset
 		int ttl = getTTL();
-		int rdLength = getRDLENGTH();//needs it to increment offset
+		getRDLENGTH();//needs it to increment offset
 		String rdata =getRDATA();
 		System.out.println("IP\t" +rdata + "\t" + ttl + "\t" + getAA());
 	}
 	private void getCNAMETypeRecord(){
-		int ansClass = getCLASS(); //Needs it to increment offset
+		getCLASS(); //Needs it to increment offset
 		int ttl = getTTL();
-		int rdLength = getRDLENGTH();//needs it to increment offset
+		getRDLENGTH();//needs it to increment offset
 		String ansData =getOffsetAfterAnswerName();
 		System.out.println("CNAME\t" + ansData + "\t" + ttl + "\t" + getAA());
 		
 	}
 	private void getNSTypeRecord(){
-		int ansClass = getCLASS(); //Needs it to increment offset
+		getCLASS(); //Needs it to increment offset
 		int ttl = getTTL();
-		int rdLength = getRDLENGTH();//needs it to increment offset
+		getRDLENGTH();//needs it to increment offset
 		String ansData =getOffsetAfterAnswerName();
 		System.out.println("NS\t" + ansData + "\t" + ttl + "\t" + getAA());
 		
 	}
 	private void getMXTypeRecord(){
-		int ansClass = getCLASS(); //Needs it to increment offset
+		getCLASS(); //Needs it to increment offset
 		int ttl = getTTL();
-		int rdLength = getRDLENGTH();//needs it to increment offset
+		getRDLENGTH();//needs it to increment offset
 		int prefData = getPrefDataMX();
 		String exchangeData = getOffsetAfterAnswerName();
 		System.out.println("MX\t" + prefData + "\t" + exchangeData + "\t" + ttl + "\t" + getAA());

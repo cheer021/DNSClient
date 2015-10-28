@@ -10,8 +10,7 @@ public class HeaderQuestion {
 		header[1] = 0;
 		/* set the first half flag: QR Opcode AA TC RD */
 		header[2] = 1;
-		/* set the second half flag: RA Z RCODE where RD = 1 and Z = 0 ?? */
-		//TODO how to set this byte to 10000000
+		/* set the second half flag: RA Z RCODE where RD = 1 and Z = 0  */
 		header[3] = 0;
 		header[4] = 0; //QDCount (2 Bytes)
 		header[5] = 1;
@@ -37,8 +36,8 @@ public class HeaderQuestion {
 		} 
 		else if (qType.equalsIgnoreCase("MX")){
 			// 15 mail exchange
-					QType[0] = 0;
-					QType[1] = (byte) (15 & 0xFF);
+			QType[0] = 0;
+			QType[1] = (byte) (15 & 0xFF);
 		}
 		
 		// Create QClass
