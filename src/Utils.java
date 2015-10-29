@@ -1,13 +1,20 @@
 public class Utils {
+	/* convert a byte in a byte array to its bit value*/
+	public static int getBitValue(byte[] b, int index) {
+		int bitValue = b[index]&00000100;
+		return bitValue;
+	}
+	/* convert the elements in a byte array to an int */
 	public static int bytesToInts(byte[] bytesArray, int startIndex, int endIndex){
-		int number = 0;
+		int myint = 0;
 		int shifts = (endIndex - 1) - startIndex;
 		for (int i = startIndex; i < endIndex; i++){
-			number = number | (bytesArray [i] & 0xFF) << (8*shifts);
+			myint = myint | (bytesArray [i] & 0xFF) << (8*shifts);
 			shifts = shifts - 1;
 		}
-		return number;
+		return myint;
 	}
+	/* convert a string to a byte array: mainly used for converting url string to byte array*/
 	public static byte[] stringToByteArray(String url){
 		String [] split = url.split("\\.");
 		byte [] bytes = new byte [url.length()+2];
@@ -23,6 +30,7 @@ public class Utils {
 		bytes [offset] = 0;
 		return bytes;
 	}
+	/* convert a string to byte array where the string is the ip address*/
 	public static byte[] stringNumberToBytesArray(String ip){
 		String [] split = ip.split("\\.");
 		byte [] bytes = new byte [4];
@@ -32,6 +40,7 @@ public class Utils {
 		}
 		return bytes;
 	}
+	/* convert the elements in byte array to string*/
 	public static String byteArrayToString(byte [] bytes, int startIndex, int endIndex){
 		String s = new String();
 		for (int i = startIndex; i < endIndex; i++){
@@ -39,9 +48,6 @@ public class Utils {
 		}
 		return s;
 	}
-	public static int getBitValue(byte[] b, int index) {
-		int bitValue = b[index]&00000100;
-		return bitValue;
-	}
+	
 	
 }

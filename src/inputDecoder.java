@@ -156,7 +156,7 @@ public class InputDecoder {
 	
 	// Print configuration settings supplied by user
 		public void printConfig(){
-			
+			System.out.println("*** Input Summary ***");
 			System.out.println("Query Type: " + getType());
 			System.out.println("Timeout Interval in ms: " + getTimeout());
 			System.out.println("Number of Retries: " + getRetris());

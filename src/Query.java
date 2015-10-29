@@ -8,6 +8,7 @@ public class Query {
 		this.url = u;
 		this.type = qType;
 	}
+	/*generate query from header and question*/
 	public void formRequestQuery(){
 		//generate request Header
 		HeaderQuestion myHQ = new HeaderQuestion();

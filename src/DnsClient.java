@@ -55,7 +55,7 @@ public class DnsClient {
             }
         }
 	    if (AttemptedTries >= myInput.getRetris()){
-			System.out.println("ERROR\tMaximum number of the max retries " + myInput.getRetris() + " exceeded");
+			System.out.println("ERROR: Maximum number of the max retries " + myInput.getRetris() + " exceeded");
 			// Close the socket
 			clientSocket.close();
 			System.exit(0);
@@ -89,12 +89,12 @@ public class DnsClient {
 	    	myReply.getAnsType();
 	    }
 	    /*print additional records */
-	    
 	    System.out.println("\n***Additional  Section : " + myReply.getARCOUNT() + " record(s)***");
 	    for(int i=0; i < myReply.getARCOUNT();i++){
 	    	myReply.getOffsetAfterAnswerName();
 	    	myReply.getAnsType();
 	    }
+	    /* close the socket*/
 	    clientSocket.close();
 		System.exit(0);
 	    

@@ -1,8 +1,6 @@
 
 public class HeaderQuestion {
 	private int HEADER_SIZE=12;
-
-	
 	public byte[] formRequestHeader(){
 		byte[] header = new byte[HEADER_SIZE];
 		/*set ID */
